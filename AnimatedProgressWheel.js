@@ -40,7 +40,11 @@ class AnimatedProgressWheel extends PureComponent {
         this.interpolateAnimVal([0, 100], [0, 1]);
 
 
-    animateTo = (toValue, duration = this.props.duration, easing = Easing.easeInOut) => {
+    animateTo = (toValue, duration = this.props.duration, easing = Easing.easeInOut, fromValue = undefined) => {
+        if (fromValue) {
+            this.animatedVal.setValue(fromValue);
+        }
+
         Animated.timing(this.animatedVal, {
             toValue,
             duration,
