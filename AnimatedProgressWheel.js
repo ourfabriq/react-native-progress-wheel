@@ -3,10 +3,7 @@ import {View, Animated, StyleSheet, Easing} from 'react-native';
 import PropTypes from 'prop-types';
 
 class AnimatedProgressWheel extends PureComponent {
-
-    state = {
-        animatedVal: new Animated.Value(0),
-    };
+    animatedVal =  new Animated.Value(0);
 
     componentDidMount() {
         const {animateFromValue, progress} = this.props;
@@ -22,12 +19,12 @@ class AnimatedProgressWheel extends PureComponent {
 
     componentDidUpdate(prevProps) {
         if (prevProps.progress !== this.props.progress) {
-            this.state.animatedVal.setValue(this.props.progress);
+            this.animatedVal.setValue(this.props.progress);
         }
     }
 
     interpolateAnimVal = (inputRange, outputRange) =>
-        this.state.animatedVal.interpolate({
+        this.animatedVal.interpolate({
             inputRange,
             outputRange,
             extrapolate: "clamp",
@@ -44,7 +41,7 @@ class AnimatedProgressWheel extends PureComponent {
 
 
     animateTo = (toValue, duration = this.props.duration, easing = Easing.easeInOut) => {
-        Animated.timing(this.state.animatedVal, {
+        Animated.timing(this.animatedVal, {
             toValue,
             duration,
             easing,
@@ -53,7 +50,7 @@ class AnimatedProgressWheel extends PureComponent {
     }
 
     resetAnimation = (progress = this.props.progress) => 
-        this.state.animatedVal.setValue(progress)
+        this.animatedVal.setValue(progress)
 
     circleHalf = (styles, isSecondHalf, color) =>
 <Animated.View style={[
